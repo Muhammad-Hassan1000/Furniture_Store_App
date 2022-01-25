@@ -1,11 +1,16 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:furniture_store_app/consts/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:furniture_store_app/services/global_methods.dart';
 import 'package:image_picker/image_picker.dart';
+
+//TO GET PRODUCT ID
+import 'package:uuid/uuid.dart';
 
 class UploadProductForm extends StatefulWidget {
   static const routeName = '/UploadProductForm';
@@ -29,15 +34,17 @@ class _UploadProductFormState extends State<UploadProductForm> {
   String? _brandValue;
 
   File? _pickedImage;
-
-  String? get value => null;
+  late String url;
 
   //db Connection
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //Error handling
   GlobalMethods _globalMethods = GlobalMethods();
-  bool _isLoading =  false;
+  bool _isLoading = false;
+
+  //Initialize Product id
+  var uuid = Uuid();
 
   showAlertDialog(BuildContext context, String title, String body) {
     // show the dialog
@@ -60,7 +67,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
     );
   }
 
-  void _trySubmit() {
+  void _trySubmit() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
@@ -76,6 +83,52 @@ class _UploadProductFormState extends State<UploadProductForm> {
       print(_productDescription);
       print(_productQuantity);
       // Use those values to send our auth request ...
+
+      try {
+        if (_pickedImage == null) {
+          _globalMethods.authErrorHandle('Please pick an image', context);
+        } else {
+          setState(() {
+            _isLoading = true;
+          });
+          final ref = FirebaseStorage.instance
+              .ref()
+              .child('productImages')
+              .child(_productTitle + '.jpg');
+          await ref.putFile(_pickedImage!);
+          url = await ref.getDownloadURL();
+
+          final User? user = _auth.currentUser;
+          final _uid = user!.uid;
+
+          //INITIALIZE PRODUCT ID
+          final productId = uuid.v4();
+
+          await FirebaseFirestore.instance
+              .collection('products')
+              .doc(productId)
+              .set({
+            'productId': productId,
+            'productTitle': _productTitle,
+            'price': _productPrice,
+            'quantity': _productQuantity,
+            'productImage': url,
+            "productCategory": _productCategory,
+            'productBrand': _productBrand,
+            'productDescription': _productDescription,
+            'userId': _uid,
+            'createdAt': Timestamp.now(),
+          });
+          Navigator.canPop(context) ? Navigator.pop(context) : null;
+        }
+      } on FirebaseAuthException catch (error) {
+        _globalMethods.authErrorHandle(error.message, context);
+        print('Error has occurred: ${error.message}');
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -138,9 +191,15 @@ class _UploadProductFormState extends State<UploadProductForm> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(right: 2),
-                  child: Text('Upload',
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.center),
+                  child: _isLoading
+                      ? Center(
+                          child: Container(
+                              height: 40,
+                              width: 40,
+                              child: CircularProgressIndicator()))
+                      : Text('Upload',
+                          style: TextStyle(fontSize: 16),
+                          textAlign: TextAlign.center),
                 ),
                 GradientIcon(
                   Entypo.upload,
@@ -389,7 +448,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   value: 'Watches',
                                 ),
                               ],
-                              onChanged: (String) {
+                              onChanged: (String? value) {
                                 setState(() {
                                   _categoryValue = value!;
                                   _categoryController.text = value!;
@@ -467,7 +526,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   value: 'Huawei',
                                 ),
                               ],
-                              onChanged: (String) {
+                              onChanged: (String? value) {
                                 setState(() {
                                   _brandValue = value!;
                                   _brandController.text = value!;

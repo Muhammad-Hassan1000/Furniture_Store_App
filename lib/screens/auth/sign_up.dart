@@ -98,6 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           final User? user = _auth.currentUser;
           final _uid = user!.uid;
           user.updateProfile(photoURL: url, displayName: _fullName);
+          user.reload();
           await FirebaseFirestore.instance.collection('users').doc(_uid).set({
             'id': _uid,
             'name': _fullName,
