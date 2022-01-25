@@ -25,12 +25,12 @@ class _UserInfoState extends State<UserInfo> {
 
   //---FETCH USER INFO
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  late String _uid;
-  late String _name;
+   String  ? _uid;
+   String ? _name;
   String ? _email;
-  String ? _joinedAt;
-  String? _userImageUrl;
-  int ? _phoneNumber;
+   String ? _joinedAt;
+   String ? _userImageUrl;
+   int ? _phoneNumber;
   @override
   void initstate() {
     super.initState();
@@ -44,17 +44,25 @@ class _UserInfoState extends State<UserInfo> {
   void getData() async {
     User? user = _auth.currentUser;
     _uid = user!.uid;
+    //--------------------METHOD 1 TO FETCH DATA---------------------
     //print("user.email ${user.email}");
-    final DocumentSnapshot userDoc =
+    print('user.displayName ${user.displayName}');
+    print('user.photoURL ${user.photoURL}');
+    //--------------------METHOD 2 TO FETCH DATA---------------
+    final DocumentSnapshot<Map<String, dynamic>>? userDoc = user.isAnonymous ? null :
         await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-    setState(() {
-      _name = userDoc.get('name');
-      //print("name $_name");
-      _email= user.email!;
-      _joinedAt =userDoc.get('joinedAt');
-      _phoneNumber = userDoc.get('phoneNumber');
-      _userImageUrl = userDoc.get('imageurl');
-    });
+    if(userDoc == null) {
+      return;
+    } else {
+      setState(() {
+        _name = userDoc!.get('name');
+        //print("name $_name");
+        _email = userDoc.get('email');
+        _joinedAt =userDoc.get('joinedAt');
+        _phoneNumber = userDoc.get('phoneNumber');
+        _userImageUrl = userDoc.get('imageurl');
+      });
+    }
   }
 
   //----HANDLE LOGOUT
@@ -125,8 +133,8 @@ class _UserInfoState extends State<UserInfo> {
 
                                       fit: BoxFit.fill,
                                       image: NetworkImage(
-                                          _userImageUrl!
-                                          //"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+                                          _userImageUrl ??
+                                          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
                                       ))),
                             ),
                             SizedBox(
@@ -134,7 +142,8 @@ class _UserInfoState extends State<UserInfo> {
                             ),
                             Text(
                               //'top.toString()',
-                              'Guest',
+                              //_name == null ? 'Guest' : _name,
+                              _name ?? 'Guest',
                               style: TextStyle(
                                   fontSize: 20.0, color: Colors.white),
                             ),
@@ -143,8 +152,8 @@ class _UserInfoState extends State<UserInfo> {
                       ),
                       background: Image(
                         image: NetworkImage(
-                            _userImageUrl!
-                            //'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'
+                            _userImageUrl ??
+                            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -206,12 +215,12 @@ class _UserInfoState extends State<UserInfo> {
                   ),
                   //USERLIST WIDGET
                   userListTile(
-                      "Email", _email!, FontAwesome5.envelope, context),
-                  userListTile("Phone", _phoneNumber.toString(), FontAwesome5.phone, context),
-                  userListTile("Shipping Adddress", "xyz", Icons.local_shipping,
+                      "Email",  _email ?? '', FontAwesome5.envelope, context),
+                  userListTile("Phone", _phoneNumber.toString() ?? '', FontAwesome5.phone, context),
+                  userListTile("Shipping Adddress", "", Icons.local_shipping,
                       context),
                   userListTile(
-                      "Joined Date", _joinedAt!, Icons.watch_later, context),
+                      "Joined Date", _joinedAt ?? '', Icons.watch_later, context),
 
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),

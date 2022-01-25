@@ -1,4 +1,4 @@
-import 'package:furniture_store_app/inner_screens/upload_product_form.dart';
+import 'package:furniture_store_app/screens/upload_product_form.dart';
 import 'package:furniture_store_app/screens/landing_page.dart';
 import 'package:flutter/material.dart';
 

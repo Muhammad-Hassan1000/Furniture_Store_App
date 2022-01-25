@@ -2,7 +2,7 @@
 
 import 'package:furniture_store_app/consts/colors.dart';
 import 'package:furniture_store_app/consts/my_icons.dart';
-import 'package:furniture_store_app/inner_screens/upload_product_form.dart';
+import 'package:furniture_store_app/screens/upload_product_form.dart';
 import 'package:furniture_store_app/screens/cart.dart';
 import 'package:furniture_store_app/screens/feeds.dart';
 import 'package:furniture_store_app/screens/wishlist.dart';

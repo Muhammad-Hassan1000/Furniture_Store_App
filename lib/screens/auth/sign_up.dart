@@ -23,6 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _phoneNumberFocusNode = FocusNode();
   bool _obscureText = true;
+
   String _emailAddress = '';
   String _password = '';
   String _fullName = '';
@@ -96,6 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               password: _password.trim());
           final User? user = _auth.currentUser;
           final _uid = user!.uid;
+          user.updateProfile(photoURL: url, displayName: _fullName);
           await FirebaseFirestore.instance.collection('users').doc(_uid).set({
             'id': _uid,
             'name': _fullName,

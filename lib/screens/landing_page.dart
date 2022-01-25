@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:furniture_store_app/consts/colors.dart';
 import 'package:furniture_store_app/screens/auth/login.dart';
 import 'package:furniture_store_app/screens/auth/sign_up.dart';
@@ -29,6 +30,7 @@ class _LandingPageState extends State<LandingPage>
   //SIGN IN WITH GOOGLE
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GlobalMethods _globalMethods = GlobalMethods();
+  bool _isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -63,16 +65,47 @@ class _LandingPageState extends State<LandingPage>
       final googleAuth = await googleAccount.authentication;
       if (googleAuth.accessToken != null && googleAuth.idToken != null) {
         try {
+          //DATE DATE
+          var date = DateTime.now().toString();
+          var dateparse = DateTime.parse(date);
+          var formattedDate ="${dateparse.day}-${dateparse.month}-${dateparse.year}";
+
           final authResult = await _auth.signInWithCredential(
               GoogleAuthProvider.credential(
                   idToken: googleAuth.idToken,
                   accessToken: googleAuth.accessToken));
+          //--------SAVE USER INFO ON GOOGLE SIGN IN
+          await FirebaseFirestore.instance.collection('users').doc(authResult.user!.uid).set({
+            'id': authResult.user!.uid,
+            'name': authResult.user!.displayName,
+            'email': authResult.user!.email,
+            'phoneNumber': authResult.user!.phoneNumber,
+            'imageurl': authResult.user!.photoURL,
+            'joinedAt': formattedDate,
+            'createdAt': Timestamp.now(),
+          });
         } on FirebaseAuthException catch (error) {
           _globalMethods.authErrorHandle(error.message, context);
           //print('Error has occurred: ${error.message}');
         }
       }
     }
+  }
+
+  void _loginAnonymously() async {
+      setState(() {
+        _isLoading = true;
+      });
+      try {
+        await _auth.signInAnonymously();
+      } on FirebaseAuthException catch (error) {
+        _globalMethods.authErrorHandle(error.message, context);
+        print('Error has occurred: ${error.message}');
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
   }
 
   @override
@@ -238,9 +271,11 @@ class _LandingPageState extends State<LandingPage>
                 borderSide: BorderSide(width: 2, color: Colors.red),
                 child: Text('Google +'),
               ),
+              _isLoading ? CircularProgressIndicator() :
               OutlineButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, BottomBarScreen.routeName);
+                  _loginAnonymously();
+                  //Navigator.pushNamed(context, BottomBarScreen.routeName);
                 },
                 shape: StadiumBorder(),
                 highlightedBorderColor: Colors.deepPurple.shade200,

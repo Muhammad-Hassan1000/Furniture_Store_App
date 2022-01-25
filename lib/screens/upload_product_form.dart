@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:furniture_store_app/consts/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:furniture_store_app/services/global_methods.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadProductForm extends StatefulWidget {
@@ -29,6 +31,14 @@ class _UploadProductFormState extends State<UploadProductForm> {
   File? _pickedImage;
 
   String? get value => null;
+
+  //db Connection
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  //Error handling
+  GlobalMethods _globalMethods = GlobalMethods();
+  bool _isLoading =  false;
+
   showAlertDialog(BuildContext context, String title, String body) {
     // show the dialog
     showDialog(
@@ -56,6 +66,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
     if (isValid) {
       _formKey.currentState!.save();
+      setState(() {
+        _isLoading = true;
+      });
       print(_productTitle);
       print(_productPrice);
       print(_productCategory);
