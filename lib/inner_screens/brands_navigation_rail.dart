@@ -28,37 +28,37 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
     print(routeArgs.toString());
     if (_selectedIndex == 0) {
       setState(() {
-        brand = 'Addidas';
+        brand = 'Interwood';
       });
     }
     if (_selectedIndex == 1) {
       setState(() {
-        brand = 'Apple';
+        brand = 'Index';
       });
     }
     if (_selectedIndex == 2) {
       setState(() {
-        brand = 'Dell';
+        brand = 'Address';
       });
     }
     if (_selectedIndex == 3) {
       setState(() {
-        brand = 'H&M';
+        brand = 'Themes';
       });
     }
     if (_selectedIndex == 4) {
       setState(() {
-        brand = 'Nike';
+        brand = 'Renaissance';
       });
     }
     if (_selectedIndex == 5) {
       setState(() {
-        brand = 'Samsung';
+        brand = 'Habit';
       });
     }
     if (_selectedIndex == 6) {
       setState(() {
-        brand = 'Huawei';
+        brand = 'Designer & Depth';
       });
     }
     if (_selectedIndex == 7) {
@@ -89,37 +89,37 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
                           _selectedIndex = index;
                           if (_selectedIndex == 0) {
                             setState(() {
-                              brand = 'Addidas';
+                              brand = 'Interwood';
                             });
                           }
                           if (_selectedIndex == 1) {
                             setState(() {
-                              brand = 'Apple';
+                              brand = 'Index';
                             });
                           }
                           if (_selectedIndex == 2) {
                             setState(() {
-                              brand = 'Dell';
+                              brand = 'Address';
                             });
                           }
                           if (_selectedIndex == 3) {
                             setState(() {
-                              brand = 'H&M';
+                              brand = 'Themes';
                             });
                           }
                           if (_selectedIndex == 4) {
                             setState(() {
-                              brand = 'Nike';
+                              brand = 'Renaissance';
                             });
                           }
                           if (_selectedIndex == 5) {
                             setState(() {
-                              brand = 'Samsung';
+                              brand = 'Habitt';
                             });
                           }
                           if (_selectedIndex == 6) {
                             setState(() {
-                              brand = 'Huawei';
+                              brand = 'Designer & Depth';
                             });
                           }
                           if (_selectedIndex == 7) {
@@ -160,13 +160,13 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
                         letterSpacing: 0.8,
                       ),
                       destinations: [
-                        buildRotatedTextRailDestination('Addidas', padding),
-                        buildRotatedTextRailDestination("Apple", padding),
-                        buildRotatedTextRailDestination("Dell", padding),
-                        buildRotatedTextRailDestination("H&M", padding),
-                        buildRotatedTextRailDestination("Nike", padding),
-                        buildRotatedTextRailDestination("Samsung", padding),
-                        buildRotatedTextRailDestination("Huawei", padding),
+                        buildRotatedTextRailDestination('Interwood', padding),
+                        buildRotatedTextRailDestination("Index", padding),
+                        buildRotatedTextRailDestination("Address", padding),
+                        buildRotatedTextRailDestination("Themes", padding),
+                        buildRotatedTextRailDestination("Renaissance", padding),
+                        buildRotatedTextRailDestination("Habitt", padding),
+                        buildRotatedTextRailDestination("Designer & Depth", padding),
                         buildRotatedTextRailDestination("All", padding),
                       ],
                     ),

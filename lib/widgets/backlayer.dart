@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:furniture_store_app/consts/colors.dart';
 import 'package:furniture_store_app/consts/my_icons.dart';
 import 'package:furniture_store_app/screens/upload_product_form.dart';
@@ -8,9 +10,48 @@ import 'package:furniture_store_app/screens/feeds.dart';
 import 'package:furniture_store_app/screens/wishlist.dart';
 import 'package:flutter/material.dart';
 
-class BackLayerMenu extends StatelessWidget {
+class BackLayerMenu extends StatefulWidget {
+
+  @override
+  State<BackLayerMenu> createState() => _BackLayerMenuState();
+}
+
+class _BackLayerMenuState extends State<BackLayerMenu> {
   @override
   Widget build(BuildContext context) {
+
+    // final FirebaseAuth _auth = FirebaseAuth.instance;
+    // String  ? _uid;
+    // bool _adminAcess = false;
+    // User? user = _auth.currentUser;
+    // _uid = user!.uid;
+
+    /*final FirebaseAuth _auth = FirebaseAuth.instance;
+    String  ? _uid;
+    User? user = _auth.currentUser;
+    _uid = user!.uid;
+    //print('user.displayName ${user.}');
+
+    final DocumentSnapshot<Map<String, dynamic>>? userDoc = (user.isAnonymous ? null :
+     FirebaseFirestore.instance.collection('users').doc(_uid).get()) as DocumentSnapshot<Map<String, dynamic>>?;
+    print('${userDoc!.get('name')}');*/
+
+
+    /*Future<bool> FetchAdminAcess() async {
+
+      final DocumentSnapshot<Map<String, dynamic>>? userDoc = user.isAnonymous ? null :
+      await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+      if(userDoc == null) {
+        return false;
+      } else {
+        setState(() {
+          _adminAcess = userDoc!.get('isAdmin');
+        });
+        print("admin $_adminAcess");
+        return _adminAcess;
+
+      }
+    }*/
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -134,12 +175,22 @@ class BackLayerMenu extends StatelessWidget {
                     routeName: WishlistScreen.routeName),
                     //routeName: Feeds.routeName),
                 const SizedBox(height: 10.0),
+                //_adminAcess ?
                 content(
                     ctx: context,
-                    text: 'Upload a new product',
+                   text: 'Upload a new product' ,
                     index: 3,
+                    routeName: UploadProductForm.routeName
                     //routeName: UploadScreen.routeName,
-                    routeName: UploadProductForm.routeName),
+                    )
+                //      :
+                // content(
+                //     ctx: context,
+                //     text: '' ,
+                //     index: 3,
+                //     //routeName: UploadScreen.routeName,
+                //     routeName: Feeds.routeName)
+                ,
               ],
             ),
           ),
@@ -154,11 +205,6 @@ class BackLayerMenu extends StatelessWidget {
     MyAppIcons.wishlist,
     MyAppIcons.upload
   ];
-  // void navigateTo(BuildContext ctx, String routeName) {
-  //   Navigator.of(ctx).pushNamed(
-  //     routeName,
-  //   );
-  // }
 
   Widget content(
       {required BuildContext ctx,

@@ -76,7 +76,7 @@ class PopularProducts extends StatelessWidget {
                         padding: EdgeInsets.all(10.0),
                         color: Theme.of(context).backgroundColor,
                         child: Text(
-                          '\$ ${productAttributes.price}',
+                          '\Rs ${productAttributes.price}',
                           style: TextStyle(
                             color: Theme.of(context).textSelectionColor,
                           ),

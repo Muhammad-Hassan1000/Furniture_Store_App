@@ -111,7 +111,7 @@ class _CartFullState extends State<CartFull> {
                         SizedBox(
                           width: 5,
                         ),
-                        Text('${cartAttr.price}\$',
+                        Text('${cartAttr.price}\Rs',
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -127,7 +127,7 @@ class _CartFullState extends State<CartFull> {
                         ),
                         FittedBox(
                           child: Text(
-                            '${subTotal.toStringAsFixed(2)}\$',
+                            '${subTotal.toStringAsFixed(2)}\Rs',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,

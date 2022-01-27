@@ -16,8 +16,9 @@ class Products with ChangeNotifier {
         .collection('products')
         .get()
         .then((QuerySnapshot productsSnapshot) {
+      _products = [];
       productsSnapshot.docs.forEach((element) {
-        _products = [];
+        print(element.get('productId'));
         _products.insert(0, Product(
             id: element.get('productId'),
             title: element.get('productTitle'),
@@ -33,7 +34,9 @@ class Products with ChangeNotifier {
             quantity: int.parse(
               element.get('quantity'),
             ),
-            isPopular: true),);
+            isPopular: element.get('isPopular') == "True" ? true : false
+            //isPopular: false,
+        ),);
       });
     });
   }

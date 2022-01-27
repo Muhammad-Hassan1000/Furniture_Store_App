@@ -115,7 +115,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               height: 8,
                             ),
                             Text(
-                              'US \$ ${prodAttr.price}',
+                              'PAK \Rs ${prodAttr.price}',
                               style: TextStyle(
                                   color: themeState.darkTheme
                                       ? Theme.of(context).disabledColor

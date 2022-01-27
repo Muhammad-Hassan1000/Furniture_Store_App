@@ -28,10 +28,15 @@ class _UploadProductFormState extends State<UploadProductForm> {
   var _productBrand = '';
   var _productDescription = '';
   var _productQuantity = '';
+  var _productPopularity = '';
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _brandController = TextEditingController();
+  final TextEditingController _popularityController = TextEditingController();
   String? _categoryValue;
   String? _brandValue;
+  String? _popularityValue;
+
+
 
   File? _pickedImage;
   late String url;
@@ -115,6 +120,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
             'productImage': url,
             "productCategory": _productCategory,
             'productBrand': _productBrand,
+            'isPopular' : _productPopularity,
             'productDescription': _productDescription,
             'userId': _uid,
             'createdAt': Timestamp.now(),
@@ -263,7 +269,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             Flexible(
                               flex: 1,
                               child: TextFormField(
-                                key: ValueKey('Price \$'),
+                                key: ValueKey('Price \Rs'),
                                 keyboardType: TextInputType.number,
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -276,7 +282,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                       RegExp(r'[0-9]')),
                                 ],
                                 decoration: InputDecoration(
-                                  labelText: 'Price \$',
+                                  labelText: 'Price \Rs',
                                   //  prefixIcon: Icon(Icons.mail),
                                   // suffixIcon: Text(
                                   //   '\n \n \$',
@@ -412,7 +418,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     },
                                     //keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
-                                      labelText: 'Add a new Category',
+                                      labelText: 'Category',
                                     ),
                                     onSaved: (value) {
                                       _productCategory = value!;
@@ -424,29 +430,33 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             DropdownButton<String>(
                               items: [
                                 DropdownMenuItem<String>(
-                                  child: Text('Phones'),
-                                  value: 'Phones',
+                                  child: Text('Beds'),
+                                  value: 'Beds',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Clothes'),
-                                  value: 'Clothes',
+                                  child: Text('Office Chairs'),
+                                  value: 'Office Chairs',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Beauty & health'),
-                                  value: 'Beauty',
+                                  child: Text('Wardrobe'),
+                                  value: 'Wardrobe',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Shoes'),
-                                  value: 'Shoes',
+                                  child: Text('Study'),
+                                  value: 'Study',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Funiture'),
-                                  value: 'Funiture',
+                                  child: Text('Tables'),
+                                  value: 'Tables',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Watches'),
-                                  value: 'Watches',
+                                  child: Text('Decor'),
+                                  value: 'Decor',
                                 ),
+                                // DropdownMenuItem<String>(
+                                //   child: Text('Sofa'),
+                                //   value: 'Sofa',
+                                // ),
                               ],
                               onChanged: (String? value) {
                                 setState(() {
@@ -498,33 +508,33 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   value: 'Brandless',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Addidas'),
-                                  value: 'Addidas',
+                                  child: Text('Interwood'),
+                                  value: 'Interwood',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Apple'),
-                                  value: 'Apple',
+                                  child: Text('Index'),
+                                  value: 'Index',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Dell'),
-                                  value: 'Dell',
+                                  child: Text('Address'),
+                                  value: 'Address',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('H&M'),
-                                  value: 'H&M',
+                                  child: Text('Themes'),
+                                  value: 'Themes',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Nike'),
-                                  value: 'Nike',
+                                  child: Text('Renaissance'),
+                                  value: 'Renaissance',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('Samsung'),
-                                  value: 'Samsung',
+                                  child: Text('Habitt'),
+                                  value: 'Habitt',
                                 ),
-                                DropdownMenuItem<String>(
-                                  child: Text('Huawei'),
-                                  value: 'Huawei',
-                                ),
+                                // DropdownMenuItem<String>(
+                                //   child: Text('Designer & Depth'),
+                                //   value: 'Designer & Depth',
+                                // ),
                               ],
                               onChanged: (String? value) {
                                 setState(() {
@@ -538,6 +548,63 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             ),
                           ],
                         ),
+
+                        //--------------------POPULAR------------
+                        SizedBox(height: 10),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 9),
+                                child: Container(
+                                  child: TextFormField(
+                                    controller: _popularityController,
+
+                                    key: ValueKey('Popular'),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please Select a value';
+                                      }
+                                      return null;
+                                    },
+                                    //keyboardType: TextInputType.emailAddress,
+                                    decoration: InputDecoration(
+                                      labelText: 'isPopular',
+                                    ),
+                                    onSaved: (value) {
+                                      _productPopularity = value!;
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                            DropdownButton<String>(
+                              items: [
+                                DropdownMenuItem<String>(
+                                  child: Text('True'),
+                                  value: 'True',
+                                ),
+                                DropdownMenuItem<String>(
+                                  child: Text('False'),
+                                  value: 'False',
+                                )
+                              ],
+                              onChanged: (String? value) {
+                                setState(() {
+                                  _popularityValue = value!;
+                                  _popularityController.text = value!;
+                                  print(_productPopularity);
+                                });
+                              },
+                              hint: Text('Select'),
+                              value: _popularityValue,
+                            ),
+                          ],
+                        ),
+
+
                         SizedBox(height: 15),
                         TextFormField(
                             key: ValueKey('Description'),

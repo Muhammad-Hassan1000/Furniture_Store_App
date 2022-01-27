@@ -77,7 +77,7 @@ class _FeedProductsState extends State<FeedProducts> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        '\$ ${productsAttributes.price}',
+                        '\Rs ${productsAttributes.price}',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: TextStyle(

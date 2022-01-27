@@ -27,6 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _emailAddress = '';
   String _password = '';
   String _fullName = '';
+  bool _admin = false;
   late int _phoneNumber;
   File? _pickedImage;
   late String url;
@@ -107,6 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             'imageurl': url,
             'joinedAt': formattedDate,
             'createdAt': Timestamp.now(),
+            'isAdmin' : false
           });
           Navigator.canPop(context) ? Navigator.pop(context) : null;
         }
@@ -401,7 +403,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             key: ValueKey('phone number'),
                             focusNode: _phoneNumberFocusNode,
                             validator: (value) {
-                              if (value!.isEmpty) {
+                              if (value!.isEmpty || value.length < 11 || value.length > 11) {
                                 return 'Please enter a valid phone number';
                               }
                               return null;

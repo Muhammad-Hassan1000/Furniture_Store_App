@@ -13,39 +13,39 @@ class CategoryWidget extends StatefulWidget {
 class _CategoryWidgetState extends State<CategoryWidget> {
   List<Map<String, Object>> categories = [
     {
-      'categoryName': 'Phones',
+      'categoryName': 'Beds',
       'categoryImagesPath':
-          'https://img.freepik.com/free-vector/realistic-phono-device_52683-29765.jpg?size=338&ext=jpg',
+          'https://cdn.pixabay.com/photo/2018/01/24/15/08/live-3104077__340.jpg',
     },
     {
-      'categoryName': 'Clothes',
+      'categoryName': 'Office Chairs',
       'categoryImagesPath':
-          'https://thumbs.dreamstime.com/b/blue-oversize-knit-sweater-hanger-fresh-plants-isolated-abstract-colorful-background-composition-clothes-banner-concept-189223692.jpg',
+          'https://cdn.pixabay.com/photo/2015/12/05/23/16/office-1078869_960_720.jpg',
     },
     {
-      'categoryName': 'Shoes',
+      'categoryName': 'Wardrobe',
       'categoryImagesPath':
-          'https://media.gq.com/photos/588232d7402b722e7ade3045/3:2/w_3000,h_2000,c_limit/adidas-ultra-boost-01-2.jpg'
+          'https://i.pinimg.com/564x/86/9c/ea/869ceae5b65333c45d8d9677a1e3620e.jpg'
     },
     {
-      'categoryName': 'Health & Beauty',
+      'categoryName': 'Study',
       'categoryImagesPath':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrSKTVGSDEAFAOL2hurOr96FazRwFg5uv-cDhyuaL5massNC3dwEr4f5nUkU6OLbKaUnM&usqp=CAU'
+          'https://i.pinimg.com/564x/0f/f3/98/0ff3983518a1c4932e00e6e77473e2f9.jpg'
     },
     {
-      'categoryName': 'Laptops',
+      'categoryName': 'Tables',
       'categoryImagesPath':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW4QcWiFX_uNbfiymb4GlBjFDOquY9d_8h3A&usqp=CAU',
+          'https://i.pinimg.com/564x/fe/de/d0/feded027e226753f55cb972b85ba14d7.jpg',
     },
     {
-      'categoryName': 'Furniture',
+      'categoryName': 'Decor',
       'categoryImagesPath':
-          'https://www.blueloft.com/alexandria/uploads/sliders/OGXsZw1588581236.png',
+          'https://i.pinimg.com/564x/fa/62/d0/fa62d04980ecfa040142ed0a260b5fef.jpg',
     },
     {
-      'categoryName': 'Watches',
+      'categoryName': 'Sofas',
       'categoryImagesPath':
-          'https://royalwrist.pk/wp-content/uploads/2021/09/slider-3.jpg',
+          'https://i.pinimg.com/564x/2c/ae/bb/2caebb437240b844c933173c0cf8646d.jpg',
     }
   ];
 

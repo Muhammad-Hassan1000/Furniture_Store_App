@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:furniture_store_app/consts/colors.dart';
 import 'package:furniture_store_app/inner_screens/brands_navigation_rail.dart';
 import 'package:furniture_store_app/provider/products.dart';
@@ -21,20 +23,57 @@ class _HomeState extends State<Home> {
   int activeIndex = 0;
 
   List _carouselIcons = [
-    'https://uswitch-mobiles-contentful.imgix.net/qhi9fkhtpbo3/2GIVGhGnGinAavm4lhYQ9b/0c004c14510b584b0e627f4be634b7e4/Cost_of_smart_phones.jpg?w=770&h=370&fit=crop', //phone
-    'https://www.teahub.io/photos/full/2-20558_m2-minotti-furniture-ads.png', //furniture
-    'https://review.chinabrands.com/chinabrands/seo/image/20181025/Dropship%20Health%20and%20Beauty%20Products.jpg',
-    'https://hhjewels.com/media/wysiwyg/pages/designers/mont-blanc/banner.jpg', //watch
-    'https://cdn.psdrepo.com/images/2x/nike-free-psd-p1.jpg' //shoes
+    'https://cdn.pixabay.com/photo/2019/06/13/17/08/round-window-4272049_960_720.jpg', //phone
+    'https://cdn.pixabay.com/photo/2021/10/06/15/05/dining-room-6686053_960_720.jpg', //furniture
+    'https://cdn.pixabay.com/photo/2020/01/20/10/33/room-4779953_960_720.jpg',
+    'https://i.pinimg.com/564x/a9/cc/f8/a9ccf898fd38a5c45a157276c6f52578.jpg', //watch
+    'https://cdn.pixabay.com/photo/2018/07/27/00/32/apartment-3564955__340.jpg' //shoes
   ];
 
   List _brandImages = [
-    'https://img.wallpapersafari.com/desktop/800/450/23/46/ZyMYhE.jpg', //apple
-    'https://i.pinimg.com/originals/c2/61/72/c261727beed1ae04d06e4d1a2074770f.jpg', //nike
-    'http://dwglogo.com/wp-content/uploads/2015/11/White-Logo-of-Dell1.png', //dell
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh8mIb-UCo4ZkT648K1Mx5SjKjyeD8cKXsC4VbqgMuC8nrsZyyu1FDI0RxYJxqg6HFHnk&usqp=CAU', //hm
+    'https://saleboard.pk/storage/app/public/brands/Interwood/interwood_logo.png', //apple
+    'http://www.citysearch.pk/UF/Companies/8651/index-furniture-logo.png', //nike
+    'https://scontent.fkhi21-1.fna.fbcdn.net/v/t31.18172-8/1795390_623494971076431_3607260986455596802_o.jpg?_nc_cat=110&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=NE2pioNM7W8AX94VEl-&_nc_ht=scontent.fkhi21-1.fna&oh=00_AT87EHzqPVG1YaXlbMN9ETMOW70lNKw99hJ54W4paSuzwQ&oe=6216DAA4', //dell
+    'https://themes.pk/wp-content/uploads/2020/05/THEMES-Logo.jpg', //hm
 
   ];
+
+  /*//---------------------fetch profile pic------------------
+
+  //---FETCH USER PROFILE
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String  ? _uid;
+  String ? _userImageUrl;
+
+
+  @override
+  void initstate() {
+    super.initState();
+    // _scrollController = ScrollController();
+    // _scrollController.addListener(() {
+    //   setState(() {});
+    // });
+    getData();
+  }
+
+  void getData() async {
+    User? user = _auth.currentUser;
+    _uid = user!.uid;
+    //--------------------METHOD 1 TO FETCH DATA---------------------
+    //print("user.email ${user.email}");
+    //print('user.displayName ${user.displayName}');
+    print('user.photoURL ${user.photoURL}');
+    //--------------------METHOD 2 TO FETCH DATA---------------
+    final DocumentSnapshot<Map<String, dynamic>> ? userDoc = user.isAnonymous ? null :
+    await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    if(userDoc == null) {
+      return;
+    } else {
+      setState(() {
+        _userImageUrl = user.photoURL;
+      });
+    }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +102,8 @@ class _HomeState extends State<Home> {
                 child: CircleAvatar(
                   radius: 13,
                   backgroundImage: NetworkImage(
-                      'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
+                     // _userImageUrl ??
+                          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png')
                 ),
               ),
               onPressed: () {},
@@ -80,36 +120,40 @@ class _HomeState extends State<Home> {
                 child: Container(
                   height: 250.0,
                   width: double.infinity,
-                  child: Column(
-                    children: [
-                      //--------------------------CAROUSEL--------------------------------------
-                      CarouselSlider.builder(
-                        options: CarouselOptions(
-                          height: 190,
-                          //1 PICTURE AT A TIME
-                          //viewportFraction: 1,
-                          autoPlay: true,
-                          enlargeCenterPage: true,
-                          enlargeStrategy: CenterPageEnlargeStrategy.height,
-                          //pageSnapping: false,
-                          //enableInfiniteScroll: false,
-                          //rev erse: true
-                          //reverse: true,
-                          autoPlayInterval: Duration(seconds: 2),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50.0),
+                    child: Column(
+                      children: [
+                        //--------------------------CAROUSEL--------------------------------------
+                        CarouselSlider.builder(
 
-                          onPageChanged: (index, reason) =>
-                              setState(() => activeIndex = index),
+                          options: CarouselOptions(
+                            height: 190,
+                            //1 PICTURE AT A TIME
+                            //viewportFraction: 1,
+                            autoPlay: true,
+                            enlargeCenterPage: true,
+                            enlargeStrategy: CenterPageEnlargeStrategy.height,
+                            //pageSnapping: false,
+                            //enableInfiniteScroll: false,
+                            //rev erse: true
+                            //reverse: true,
+                            autoPlayInterval: Duration(seconds: 2),
+
+                            onPageChanged: (index, reason) =>
+                                setState(() => activeIndex = index),
+                          ),
+                          itemCount: _carouselIcons.length,
+                          itemBuilder: (context, index, realIndex) {
+                            final icon = _carouselIcons[index];
+
+                            return buildImage(icon, index);
+                          },
                         ),
-                        itemCount: _carouselIcons.length,
-                        itemBuilder: (context, index, realIndex) {
-                          final icon = _carouselIcons[index];
-
-                          return buildImage(icon, index);
-                        },
-                      ),
-                      const SizedBox(height: 32),
-                      buildIndicator(),
-                    ],
+                        const SizedBox(height: 32),
+                        buildIndicator(),
+                      ],
+                    ),
                   ),
                 ),
               ),
