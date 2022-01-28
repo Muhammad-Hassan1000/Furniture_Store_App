@@ -5,6 +5,7 @@ import 'package:furniture_store_app/inner_screens/brands_navigation_rail.dart';
 import 'package:furniture_store_app/provider/products.dart';
 import 'package:furniture_store_app/screens/feeds.dart';
 import 'package:furniture_store_app/screens/popular_products.dart';
+import 'package:furniture_store_app/screens/user_info.dart';
 import 'package:furniture_store_app/widgets/backlayer.dart';
 import 'package:furniture_store_app/widgets/category.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:furniture_store_app/screens/user_info.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -38,7 +40,7 @@ class _HomeState extends State<Home> {
 
   ];
 
-  /*//---------------------fetch profile pic------------------
+  //---------------------fetch profile pic------------------
 
   //---FETCH USER PROFILE
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -73,7 +75,7 @@ class _HomeState extends State<Home> {
         _userImageUrl = user.photoURL;
       });
     }
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +108,9 @@ class _HomeState extends State<Home> {
                           'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png')
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                //Navigator.pushNamed(context,UserInfo.routeName );
+              },
             )
           ],
         ),

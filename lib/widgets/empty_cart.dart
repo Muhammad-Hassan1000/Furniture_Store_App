@@ -1,6 +1,7 @@
 import 'package:furniture_store_app/consts/colors.dart';
 import 'package:furniture_store_app/provider/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:furniture_store_app/screens/feeds.dart';
 import 'package:provider/provider.dart';
 
 class CartEmpty extends StatelessWidget {
@@ -49,7 +50,9 @@ class CartEmpty extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.9,
           height: MediaQuery.of(context).size.height * 0.06,
           child: RaisedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, Feeds.routeName);
+            },
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
               side: BorderSide(color: Colors.red),

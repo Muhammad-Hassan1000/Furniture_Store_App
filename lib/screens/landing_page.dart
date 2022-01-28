@@ -114,10 +114,10 @@ class _LandingPageState extends State<LandingPage>
         body: Stack(children: [
       CachedNetworkImage(
         imageUrl: images[1],
-        placeholder: (context, url) => Image.network(
-          'https://image.flaticon.com/icons/png/128/564/564619.png',
-          fit: BoxFit.contain,
-        ),
+        // placeholder: (context, url) => Image.network(
+        //   'https://image.flaticon.com/icons/png/128/564/564619.png',
+        //   fit: BoxFit.contain,
+        // ),
         errorWidget: (context, url, error) => Icon(Icons.error),
         fit: BoxFit.cover,
         height: double.infinity,

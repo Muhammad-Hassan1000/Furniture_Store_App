@@ -179,48 +179,49 @@ class _ProductDetailsState extends State<ProductDetails> {
                         height: 1,
                       ),
 
-                      // const SizedBox(height: 15.0),
-                      Container(
-                        color: Theme.of(context).backgroundColor,
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 10.0),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'No reviews yet',
-                                style: TextStyle(
-                                    color: Theme.of(context).textSelectionColor,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 21.0),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: Text(
-                                'Be the first review!',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 20.0,
-                                  color: themeState.darkTheme
-                                      ? Theme.of(context).disabledColor
-                                      : ColorConsts.subtitle,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 70,
-                            ),
-                            Divider(
-                              thickness: 1,
-                              color: Colors.grey,
-                              height: 1,
-                            ),
-                          ],
-                        ),
-                      ),
+                       const SizedBox(height: 20.0),
+                      //--------------------------REVIEW CONTAINER--------------
+                      // Container(
+                      //   color: Theme.of(context).backgroundColor,
+                      //   width: double.infinity,
+                      //   child: Column(
+                      //     crossAxisAlignment: CrossAxisAlignment.center,
+                      //     children: [
+                      //       const SizedBox(height: 10.0),
+                      //       Padding(
+                      //         padding: const EdgeInsets.all(8.0),
+                      //         child: Text(
+                      //           'No reviews yet',
+                      //           style: TextStyle(
+                      //               color: Theme.of(context).textSelectionColor,
+                      //               fontWeight: FontWeight.w600,
+                      //               fontSize: 21.0),
+                      //         ),
+                      //       ),
+                      //       Padding(
+                      //         padding: const EdgeInsets.all(2.0),
+                      //         child: Text(
+                      //           'Be the first review!',
+                      //           style: TextStyle(
+                      //             fontWeight: FontWeight.w400,
+                      //             fontSize: 20.0,
+                      //             color: themeState.darkTheme
+                      //                 ? Theme.of(context).disabledColor
+                      //                 : ColorConsts.subtitle,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       SizedBox(
+                      //         height: 70,
+                      //       ),
+                      //       Divider(
+                      //         thickness: 1,
+                      //         color: Colors.grey,
+                      //         height: 1,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -237,9 +238,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Container(
                   margin: EdgeInsets.only(bottom: 30),
                   width: double.infinity,
-                  height: 360,
+                  height: 370,
                   child: ListView.builder(
-                    itemCount: 7,
+                    itemCount: productsList.length < 7 ? productsList.length: 7,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext ctx, int index) {
                       return ChangeNotifierProvider.value(
@@ -247,6 +248,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     },
                   ),
                 ),
+                //SizedBox(height: 40);
               ],
             ),
           ),
@@ -299,7 +301,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: IconButton(
                         icon: Icon(
                           MyAppIcons.cart,
-                          color: ColorConsts.cartColor,
+                          color: ColorConsts.gradiendLStart,
                         ),
                         onPressed: () {
                           Navigator.of(context).pushNamed(CartScreen.routeName);

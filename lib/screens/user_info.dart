@@ -15,6 +15,8 @@ import 'package:provider/provider.dart';
 class UserInfo extends StatefulWidget {
   //const UserInfo({Key? key}) : super(key: key);
 
+  static const routeName = '/UserInfo';
+
   @override
   State<UserInfo> createState() => _UserInfoState();
 }

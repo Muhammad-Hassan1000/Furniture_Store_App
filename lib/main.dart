@@ -1,5 +1,6 @@
 import 'package:furniture_store_app/consts/theme_data.dart';
 import 'package:furniture_store_app/inner_screens/product_details.dart';
+import 'package:furniture_store_app/screens/auth/forget_password.dart';
 import 'package:furniture_store_app/screens/upload_product_form.dart';
 import 'package:furniture_store_app/provider/cart_provider.dart';
 import 'package:furniture_store_app/provider/dark_theme_provider.dart';
@@ -13,6 +14,7 @@ import 'package:furniture_store_app/screens/categories_feeds.dart';
 import 'package:furniture_store_app/screens/feeds.dart';
 import 'package:furniture_store_app/screens/landing_page.dart';
 import 'package:furniture_store_app/screens/main_screen.dart';
+import 'package:furniture_store_app/screens/user_info.dart';
 import 'package:furniture_store_app/screens/user_state.dart';
 import 'package:furniture_store_app/screens/wishlist.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -108,6 +110,8 @@ class _MyAppState extends State<MyApp> {
                     SignUpScreen.routeName: (ctx) => SignUpScreen(),
                     BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
                     UploadProductForm.routeName: (ctx) => UploadProductForm(),
+                    ForgetPassword.routeName: (ctx) => ForgetPassword(),
+                    UserInfo.routeName: (ctx) => UserInfo()
                   },
                 );
               }));
