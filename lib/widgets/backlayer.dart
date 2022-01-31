@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:furniture_store_app/consts/colors.dart';
 import 'package:furniture_store_app/consts/my_icons.dart';
+import 'package:furniture_store_app/screens/itemListScreen.dart';
 import 'package:furniture_store_app/screens/upload_product_form.dart';
 import 'package:furniture_store_app/screens/cart.dart';
 import 'package:furniture_store_app/screens/feeds.dart';
@@ -24,7 +25,7 @@ class _BackLayerMenuState extends State<BackLayerMenu> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String  ? _uid;
   String ? _userImageUrl;
-  bool ? _isAdmin;
+  //bool ? _isAdmin;
 
   @override
   void initState() {
@@ -44,8 +45,8 @@ class _BackLayerMenuState extends State<BackLayerMenu> {
       return;
     } else {
       setState(() {
-        _isAdmin = userDoc.get('isAdmin');
-        print("is Admin ${_isAdmin}");
+        //_isAdmin = userDoc.get('isAdmin');
+        //print("is Admin ${_isAdmin}");
       });
     }
   }
@@ -130,7 +131,7 @@ class _BackLayerMenuState extends State<BackLayerMenu> {
         SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.all(50),
-            child: _isAdmin! ? Column(
+    child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -170,9 +171,9 @@ class _BackLayerMenuState extends State<BackLayerMenu> {
                 const SizedBox(height: 10.0),
                 content(
                     ctx: context,
-                    text: 'Wishlist',
+                    text: 'View Products in AR ',
                     index: 2,
-                    routeName: WishlistScreen.routeName),
+                    routeName: ItemListScreen.routeName),
                     //routeName: Feeds.routeName),
                 const SizedBox(height: 10.0),
                 content(
@@ -183,55 +184,109 @@ class _BackLayerMenuState extends State<BackLayerMenu> {
                     //routeName: UploadScreen.routeName,
                     )
               ],
-            ):
-
-    Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-    Center(
-    child: Container(
-    padding: const EdgeInsets.all(8.0),
-    height: 100,
-    width: 100,
-    decoration: BoxDecoration(
-    color: Theme.of(context).backgroundColor,
-    borderRadius: BorderRadius.circular(10.0)),
-    child: Container(
-    //   clipBehavior: Clip.antiAlias,
-    decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(20.0),
-    image: DecorationImage(
-    image: NetworkImage(
-    _userImageUrl ??
-    'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
-    fit: BoxFit.fill,
-    )),
-    ),
-    ),
-    ),
-    const SizedBox(height: 10.0),
-    content(
-    ctx: context,
-    text: 'Feeds',
-    index: 0,
-    routeName: Feeds.routeName),
-    const SizedBox(height: 10.0),
-    content(
-    ctx: context,
-    text: 'Cart',
-    index: 1,
-    routeName: CartScreen.routeName),
-    const SizedBox(height: 10.0),
-    content(
-    ctx: context,
-    text: 'Wishlist',
-    index: 2,
-    routeName: WishlistScreen.routeName),
-    //routeName: Feeds.routeName),
-    const SizedBox(height: 10.0),
-    ],
-    ),
+            )
+    //         child: _isAdmin! ? Column(
+    //           mainAxisAlignment: MainAxisAlignment.center,
+    //           crossAxisAlignment: CrossAxisAlignment.stretch,
+    //           children: [
+    //             Center(
+    //               child: Container(
+    //                 padding: const EdgeInsets.all(8.0),
+    //                 height: 100,
+    //                 width: 100,
+    //                 decoration: BoxDecoration(
+    //                     color: Theme.of(context).backgroundColor,
+    //                     borderRadius: BorderRadius.circular(10.0)),
+    //                 child: Container(
+    //                   //   clipBehavior: Clip.antiAlias,
+    //                   decoration: BoxDecoration(
+    //                       borderRadius: BorderRadius.circular(20.0),
+    //                       image: DecorationImage(
+    //                         image: NetworkImage(
+    //                             _userImageUrl ??
+    //                             'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
+    //                         fit: BoxFit.fill,
+    //                       )),
+    //                 ),
+    //               ),
+    //             ),
+    //             const SizedBox(height: 10.0),
+    //             content(
+    //                 ctx: context,
+    //                 text: 'Feeds',
+    //                 index: 0,
+    //                 routeName: Feeds.routeName),
+    //             const SizedBox(height: 10.0),
+    //             content(
+    //                 ctx: context,
+    //                 text: 'Cart',
+    //                 index: 1,
+    //                 routeName: CartScreen.routeName),
+    //             const SizedBox(height: 10.0),
+    //             content(
+    //                 ctx: context,
+    //                 text: 'View Products in AR ',
+    //                 index: 2,
+    //                 routeName: ItemListScreen.routeName),
+    //                 //routeName: Feeds.routeName),
+    //             const SizedBox(height: 10.0),
+    //             content(
+    //                 ctx: context,
+    //                text: 'Upload a new product' ,
+    //                 index: 3,
+    //                 routeName: UploadProductForm.routeName
+    //                 //routeName: UploadScreen.routeName,
+    //                 )
+    //           ],
+    //         ):
+    //
+    // Column(
+    // mainAxisAlignment: MainAxisAlignment.center,
+    // crossAxisAlignment: CrossAxisAlignment.stretch,
+    // children: [
+    // Center(
+    // child: Container(
+    // padding: const EdgeInsets.all(8.0),
+    // height: 100,
+    // width: 100,
+    // decoration: BoxDecoration(
+    // color: Theme.of(context).backgroundColor,
+    // borderRadius: BorderRadius.circular(10.0)),
+    // child: Container(
+    // //   clipBehavior: Clip.antiAlias,
+    // decoration: BoxDecoration(
+    // borderRadius: BorderRadius.circular(20.0),
+    // image: DecorationImage(
+    // image: NetworkImage(
+    // _userImageUrl ??
+    // 'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
+    // fit: BoxFit.fill,
+    // )),
+    // ),
+    // ),
+    // ),
+    // const SizedBox(height: 10.0),
+    // content(
+    // ctx: context,
+    // text: 'Feeds',
+    // index: 0,
+    // routeName: Feeds.routeName),
+    // const SizedBox(height: 10.0),
+    // content(
+    // ctx: context,
+    // text: 'Cart',
+    // index: 1,
+    // routeName: CartScreen.routeName),
+    // const SizedBox(height: 10.0),
+    // content(
+    // ctx: context,
+    // text: 'Wishlist',
+    // index: 2,
+    // routeName: WishlistScreen.routeName),
+    // //routeName: Feeds.routeName),
+    // const SizedBox(height: 10.0),
+    // ],
+    // ),
           ),
         ),
       ],

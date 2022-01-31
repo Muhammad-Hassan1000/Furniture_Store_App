@@ -54,6 +54,9 @@ dependencies:
   firebase_storage: ^10.2.5
   uuid: ^3.0.5
   fluttertoast: ^8.0.8
+#  http: ^0.13.4
+#  stripe_payment: ^1.1.4
+#  progress_dialog: ^1.2.2
 
 dev_dependencies:
   flutter_test:

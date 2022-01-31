@@ -1,6 +1,7 @@
 import 'package:furniture_store_app/consts/theme_data.dart';
 import 'package:furniture_store_app/inner_screens/product_details.dart';
 import 'package:furniture_store_app/screens/auth/forget_password.dart';
+import 'package:furniture_store_app/screens/itemListScreen.dart';
 import 'package:furniture_store_app/screens/upload_product_form.dart';
 import 'package:furniture_store_app/provider/cart_provider.dart';
 import 'package:furniture_store_app/provider/dark_theme_provider.dart';
@@ -110,6 +111,7 @@ class _MyAppState extends State<MyApp> {
                     UploadProductForm.routeName: (ctx) => UploadProductForm(),
                     ForgetPassword.routeName: (ctx) => ForgetPassword(),
                     UserInfoScreen.routeName: (ctx) => UserInfoScreen(),
+                    ItemListScreen.routeName: (ctx) => ItemListScreen()
                   },
                 );
               }));

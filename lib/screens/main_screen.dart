@@ -14,39 +14,42 @@ class MainScreens extends StatefulWidget {
 }
 
 class _MainScreensState extends State<MainScreens> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  String  ? _uid;
-  bool ? _isAdmin;
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  void getData() async {
-    User? user = _auth.currentUser;
-    _uid = user!.uid;
-
-    //--------------------METHOD 2 TO FETCH Admin Access---------------
-    final DocumentSnapshot<Map<String, dynamic>> ? userDoc = user.isAnonymous ? null :
-    await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-    if(userDoc == null) {
-      return;
-    } else {
-      setState(() {
-        _isAdmin = userDoc.get('isAdmin');
-        print("is Admin ${_isAdmin}");
-      });
-    }
-  }
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  // String  ? _uid;
+  // bool ? _isAdmin;
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getData();
+  // }
+  //
+  // void getData() async {
+  //   User? user = _auth.currentUser;
+  //   _uid = user!.uid;
+  //
+  //   //--------------------METHOD 2 TO FETCH Admin Access---------------
+  //   final DocumentSnapshot<Map<String, dynamic>> ? userDoc = user.isAnonymous ? null :
+  //   await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+  //   if(userDoc == null) {
+  //     return;
+  //   } else {
+  //     setState(() {
+  //       _isAdmin = userDoc.get('isAdmin');
+  //       print("is Admin ${_isAdmin}");
+  //     });
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
-    return _isAdmin! ? PageView(
-      children: [BottomBarScreen(), UploadProductForm()]
-    ) :
-    PageView(
-        children: [BottomBarScreen(), UserInfoScreen()]
-    );
+    // return _isAdmin! ? PageView(
+    //   children: [BottomBarScreen(), UploadProductForm()]
+    // ) :
+    // PageView(
+    //     children: [BottomBarScreen(), UserInfoScreen()]
+    // );
+    return PageView(
+          children: [BottomBarScreen(), UploadProductForm()]
+        );
   }
 }

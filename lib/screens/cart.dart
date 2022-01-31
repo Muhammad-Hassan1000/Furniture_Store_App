@@ -8,6 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
+
+  //PAYMENT GATEWAY
+  // 1) The mount must be an
+  // integer
+  // 2) The amount must be
+  // at least 0.5 USD
+  // 3) The amount must be
+  // sent in cents.
   static const routeName = '/CartScreen';
 
   @override
