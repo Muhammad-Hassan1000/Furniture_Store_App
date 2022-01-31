@@ -66,7 +66,7 @@ class BrandsNavigationRail extends StatelessWidget {
                       height: 20.0,
                     ),
                     FittedBox(
-                      child: Text('US ${productsAttributes.price} \$',
+                      child: Text(' ${productsAttributes.price} \Rs',
                           maxLines: 1,
                           style: TextStyle(
                             color: Colors.red,

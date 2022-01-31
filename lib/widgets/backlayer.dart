@@ -14,44 +14,43 @@ class BackLayerMenu extends StatefulWidget {
 
   @override
   State<BackLayerMenu> createState() => _BackLayerMenuState();
+
+
 }
 
 class _BackLayerMenuState extends State<BackLayerMenu> {
+
+  //---FETCH USER PROFILE
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String  ? _uid;
+  String ? _userImageUrl;
+  bool ? _isAdmin;
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    getData();
+  }
 
-    // final FirebaseAuth _auth = FirebaseAuth.instance;
-    // String  ? _uid;
-    // bool _adminAcess = false;
-    // User? user = _auth.currentUser;
-    // _uid = user!.uid;
-
-    /*final FirebaseAuth _auth = FirebaseAuth.instance;
-    String  ? _uid;
+  void getData() async {
     User? user = _auth.currentUser;
     _uid = user!.uid;
-    //print('user.displayName ${user.}');
+    _userImageUrl = user.photoURL;
 
-    final DocumentSnapshot<Map<String, dynamic>>? userDoc = (user.isAnonymous ? null :
-     FirebaseFirestore.instance.collection('users').doc(_uid).get()) as DocumentSnapshot<Map<String, dynamic>>?;
-    print('${userDoc!.get('name')}');*/
-
-
-    /*Future<bool> FetchAdminAcess() async {
-
-      final DocumentSnapshot<Map<String, dynamic>>? userDoc = user.isAnonymous ? null :
-      await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-      if(userDoc == null) {
-        return false;
-      } else {
-        setState(() {
-          _adminAcess = userDoc!.get('isAdmin');
-        });
-        print("admin $_adminAcess");
-        return _adminAcess;
-
-      }
-    }*/
+    //--------------------METHOD 2 TO FETCH Admin Access---------------
+    final DocumentSnapshot<Map<String, dynamic>> ? userDoc = user.isAnonymous ? null :
+    await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    if(userDoc == null) {
+      return;
+    } else {
+      setState(() {
+        _isAdmin = userDoc.get('isAdmin');
+        print("is Admin ${_isAdmin}");
+      });
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -131,7 +130,7 @@ class _BackLayerMenuState extends State<BackLayerMenu> {
         SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.all(50),
-            child: Column(
+            child: _isAdmin! ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -149,6 +148,7 @@ class _BackLayerMenuState extends State<BackLayerMenu> {
                           borderRadius: BorderRadius.circular(20.0),
                           image: DecorationImage(
                             image: NetworkImage(
+                                _userImageUrl ??
                                 'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
                             fit: BoxFit.fill,
                           )),
@@ -175,7 +175,6 @@ class _BackLayerMenuState extends State<BackLayerMenu> {
                     routeName: WishlistScreen.routeName),
                     //routeName: Feeds.routeName),
                 const SizedBox(height: 10.0),
-                //_adminAcess ?
                 content(
                     ctx: context,
                    text: 'Upload a new product' ,
@@ -183,16 +182,56 @@ class _BackLayerMenuState extends State<BackLayerMenu> {
                     routeName: UploadProductForm.routeName
                     //routeName: UploadScreen.routeName,
                     )
-                //      :
-                // content(
-                //     ctx: context,
-                //     text: '' ,
-                //     index: 3,
-                //     //routeName: UploadScreen.routeName,
-                //     routeName: Feeds.routeName)
-                ,
               ],
-            ),
+            ):
+
+    Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+    Center(
+    child: Container(
+    padding: const EdgeInsets.all(8.0),
+    height: 100,
+    width: 100,
+    decoration: BoxDecoration(
+    color: Theme.of(context).backgroundColor,
+    borderRadius: BorderRadius.circular(10.0)),
+    child: Container(
+    //   clipBehavior: Clip.antiAlias,
+    decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(20.0),
+    image: DecorationImage(
+    image: NetworkImage(
+    _userImageUrl ??
+    'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
+    fit: BoxFit.fill,
+    )),
+    ),
+    ),
+    ),
+    const SizedBox(height: 10.0),
+    content(
+    ctx: context,
+    text: 'Feeds',
+    index: 0,
+    routeName: Feeds.routeName),
+    const SizedBox(height: 10.0),
+    content(
+    ctx: context,
+    text: 'Cart',
+    index: 1,
+    routeName: CartScreen.routeName),
+    const SizedBox(height: 10.0),
+    content(
+    ctx: context,
+    text: 'Wishlist',
+    index: 2,
+    routeName: WishlistScreen.routeName),
+    //routeName: Feeds.routeName),
+    const SizedBox(height: 10.0),
+    ],
+    ),
           ),
         ),
       ],

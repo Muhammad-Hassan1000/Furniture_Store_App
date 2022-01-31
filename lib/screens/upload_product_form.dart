@@ -125,8 +125,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
             'userId': _uid,
             'createdAt': Timestamp.now(),
           });
-          Navigator.canPop(context) ? Navigator.pop(context) : null;
         }
+        Navigator.canPop(context)? Navigator.pop(context) : null;
       } on FirebaseAuthException catch (error) {
         _globalMethods.authErrorHandle(error.message, context);
         print('Error has occurred: ${error.message}');
@@ -207,7 +207,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                           style: TextStyle(fontSize: 16),
                           textAlign: TextAlign.center),
                 ),
-                GradientIcon(
+                _isLoading ? Container():  GradientIcon(
                   Entypo.upload,
                   20,
                   LinearGradient(
@@ -453,10 +453,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   child: Text('Decor'),
                                   value: 'Decor',
                                 ),
-                                // DropdownMenuItem<String>(
-                                //   child: Text('Sofa'),
-                                //   value: 'Sofa',
-                                // ),
+                                DropdownMenuItem<String>(
+                                  child: Text('Sofa'),
+                                  value: 'Sofa',
+                                ),
                               ],
                               onChanged: (String? value) {
                                 setState(() {
@@ -531,10 +531,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   child: Text('Habitt'),
                                   value: 'Habitt',
                                 ),
-                                // DropdownMenuItem<String>(
-                                //   child: Text('Designer & Depth'),
-                                //   value: 'Designer & Depth',
-                                // ),
+                                DropdownMenuItem<String>(
+                                  child: Text('Designer & Depth'),
+                                  value: 'Designer & Depth',
+                                ),
                               ],
                               onChanged: (String? value) {
                                 setState(() {
@@ -583,11 +583,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             DropdownButton<String>(
                               items: [
                                 DropdownMenuItem<String>(
-                                  child: Text('True'),
+                                  child: Text('Yes'),
                                   value: 'True',
                                 ),
                                 DropdownMenuItem<String>(
-                                  child: Text('False'),
+                                  child: Text('No'),
                                   value: 'False',
                                 )
                               ],

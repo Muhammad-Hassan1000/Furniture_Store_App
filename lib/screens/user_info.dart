@@ -12,16 +12,16 @@ import 'package:fluttericon/zocial_icons.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
 
-class UserInfo extends StatefulWidget {
+class UserInfoScreen extends StatefulWidget {
   //const UserInfo({Key? key}) : super(key: key);
 
   static const routeName = '/UserInfo';
 
   @override
-  State<UserInfo> createState() => _UserInfoState();
+  State<UserInfoScreen> createState() => _UserInfoScreenState();
 }
 
-class _UserInfoState extends State<UserInfo> {
+class _UserInfoScreenState extends State<UserInfoScreen> {
   late ScrollController _scrollController;
   var top = 0.0;
 

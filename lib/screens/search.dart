@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:furniture_store_app/consts/colors.dart';
 import 'package:furniture_store_app/models/product.dart';
 import 'package:furniture_store_app/provider/products.dart';
@@ -16,12 +17,25 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   late TextEditingController _searchTextController;
   final FocusNode _node = FocusNode();
+
+  //---FETCH USER PROFILE
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String  ? _uid;
+  String ? _userImageUrl;
+  @override
   void initState() {
     super.initState();
     _searchTextController = TextEditingController();
     _searchTextController.addListener(() {
       setState(() {});
     });
+    getData();
+  }
+
+  void getData() {
+    User? user = _auth.currentUser;
+    _uid = user!.uid;
+    _userImageUrl = user.photoURL;
   }
 
   @override
@@ -43,6 +57,7 @@ class _SearchState extends State<Search> {
             floating: true,
             pinned: true,
             delegate: SearchByHeader(
+              imageUrl: _userImageUrl,
               stackPaddingTop: 175,
               titlePaddingTop: 50,
               title: RichText(

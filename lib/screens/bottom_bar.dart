@@ -37,7 +37,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         'page': CartScreen(),
       },
       {
-        'page': UserInfo(),
+        'page': UserInfoScreen(),
       },
     ];
     super.initState();

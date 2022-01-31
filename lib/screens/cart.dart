@@ -115,7 +115,7 @@ class CartScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600),
               ),
               Text(
-                'US \$${subtotal.toStringAsFixed(2)}',
+                ' \Rs${subtotal.toStringAsFixed(2)}',
                 //textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Color(0xFF4876FF), //(0xFF4876FF darker blue)

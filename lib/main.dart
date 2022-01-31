@@ -12,8 +12,6 @@ import 'package:furniture_store_app/screens/bottom_bar.dart';
 import 'package:furniture_store_app/screens/cart.dart';
 import 'package:furniture_store_app/screens/categories_feeds.dart';
 import 'package:furniture_store_app/screens/feeds.dart';
-import 'package:furniture_store_app/screens/landing_page.dart';
-import 'package:furniture_store_app/screens/main_screen.dart';
 import 'package:furniture_store_app/screens/user_info.dart';
 import 'package:furniture_store_app/screens/user_state.dart';
 import 'package:furniture_store_app/screens/wishlist.dart';
@@ -111,7 +109,7 @@ class _MyAppState extends State<MyApp> {
                     BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
                     UploadProductForm.routeName: (ctx) => UploadProductForm(),
                     ForgetPassword.routeName: (ctx) => ForgetPassword(),
-                    UserInfo.routeName: (ctx) => UserInfo()
+                    UserInfoScreen.routeName: (ctx) => UserInfoScreen(),
                   },
                 );
               }));

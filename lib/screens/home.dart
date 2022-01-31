@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
 
 
   @override
-  void initstate() {
+  void initState() {
     super.initState();
     // _scrollController = ScrollController();
     // _scrollController.addListener(() {
@@ -61,20 +61,22 @@ class _HomeState extends State<Home> {
   void getData() async {
     User? user = _auth.currentUser;
     _uid = user!.uid;
+    _userImageUrl = user.photoURL;
+    //print('user.photoURL ${user.photoURL}');
     //--------------------METHOD 1 TO FETCH DATA---------------------
     //print("user.email ${user.email}");
     //print('user.displayName ${user.displayName}');
-    print('user.photoURL ${user.photoURL}');
-    //--------------------METHOD 2 TO FETCH DATA---------------
-    final DocumentSnapshot<Map<String, dynamic>> ? userDoc = user.isAnonymous ? null :
-    await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-    if(userDoc == null) {
-      return;
-    } else {
-      setState(() {
-        _userImageUrl = user.photoURL;
-      });
-    }
+    // print('user.photoURL ${user.photoURL}');
+    // //--------------------METHOD 2 TO FETCH DATA---------------
+    // final DocumentSnapshot<Map<String, dynamic>> ? userDoc = user.isAnonymous ? null :
+    // await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    // if(userDoc == null) {
+    //   return;
+    // } else {
+    //   setState(() {
+    //     _userImageUrl = user.photoURL;
+    //   });
+    // }
   }
 
   @override
@@ -104,7 +106,7 @@ class _HomeState extends State<Home> {
                 child: CircleAvatar(
                   radius: 13,
                   backgroundImage: NetworkImage(
-                     // _userImageUrl ??
+                      _userImageUrl ??
                           'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png')
                 ),
               ),

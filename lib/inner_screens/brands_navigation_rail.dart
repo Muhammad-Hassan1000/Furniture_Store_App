@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:furniture_store_app/provider/products.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -67,6 +68,22 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
       });
     }
     super.didChangeDependencies();
+  }
+
+  //---FETCH USER PROFILE
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String  ? _uid;
+  String ? _userImageUrl;
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() {
+    User? user = _auth.currentUser;
+    _uid = user!.uid;
+    _userImageUrl = user.photoURL;
   }
 
   @override
@@ -140,6 +157,7 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
                             child: CircleAvatar(
                               radius: 16,
                               backgroundImage: NetworkImage(
+                                _userImageUrl ??
                                   "https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg"),
                             ),
                           ),
