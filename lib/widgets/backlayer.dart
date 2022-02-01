@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:furniture_store_app/consts/colors.dart';
 import 'package:furniture_store_app/consts/my_icons.dart';
 import 'package:furniture_store_app/screens/itemListScreen.dart';
@@ -296,7 +297,7 @@ class _BackLayerMenuState extends State<BackLayerMenu> {
   List _contentIcons = [
     MyAppIcons.rss,
     MyAppIcons.bag,
-    MyAppIcons.wishlist,
+    FontAwesome5.camera,
     MyAppIcons.upload
   ];
 

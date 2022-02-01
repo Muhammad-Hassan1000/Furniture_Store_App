@@ -3,7 +3,7 @@ import 'package:furniture_store_app/models/ItemModel.dart';
 import 'package:flutter/material.dart';
 
 class ItemModel {
-  String name, detail, pic;
+  String name, pic;
   int price;
-  ItemModel(this.name, this.detail, this.pic, this.price);
+  ItemModel(this.name, this.pic, this.price);
 }

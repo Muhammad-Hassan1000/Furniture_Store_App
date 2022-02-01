@@ -37,16 +37,14 @@ class _HomeState extends State<Home> {
     'http://www.citysearch.pk/UF/Companies/8651/index-furniture-logo.png', //nike
     'https://scontent.fkhi21-1.fna.fbcdn.net/v/t31.18172-8/1795390_623494971076431_3607260986455596802_o.jpg?_nc_cat=110&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=NE2pioNM7W8AX94VEl-&_nc_ht=scontent.fkhi21-1.fna&oh=00_AT87EHzqPVG1YaXlbMN9ETMOW70lNKw99hJ54W4paSuzwQ&oe=6216DAA4', //dell
     'https://themes.pk/wp-content/uploads/2020/05/THEMES-Logo.jpg', //hm
-
   ];
 
   //---------------------fetch profile pic------------------
 
   //---FETCH USER PROFILE
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String  ? _uid;
-  String ? _userImageUrl;
-
+  String? _uid;
+  String? _userImageUrl;
 
   @override
   void initState() {
@@ -89,12 +87,11 @@ class _HomeState extends State<Home> {
         frontLayerBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
         headerHeight: MediaQuery.of(context).size.height * 0.25,
         appBar: BackdropAppBar(
-          title: Text('Home'),
+          title: Text('interiAR'),
           flexibleSpace: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    colors: [ColorConsts.starterColor,
-                             ColorConsts.endcolor])),
+                    colors: [ColorConsts.starterColor, ColorConsts.endcolor])),
           ),
           actions: <Widget>[
             IconButton(
@@ -104,11 +101,9 @@ class _HomeState extends State<Home> {
                 radius: 15,
                 backgroundColor: Colors.white,
                 child: CircleAvatar(
-                  radius: 13,
-                  backgroundImage: NetworkImage(
-                      _userImageUrl ??
-                          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png')
-                ),
+                    radius: 13,
+                    backgroundImage: NetworkImage(_userImageUrl ??
+                        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png')),
               ),
               onPressed: () {
                 //Navigator.pushNamed(context,UserInfo.routeName );
@@ -132,7 +127,6 @@ class _HomeState extends State<Home> {
                       children: [
                         //--------------------------CAROUSEL--------------------------------------
                         CarouselSlider.builder(
-
                           options: CarouselOptions(
                             height: 190,
                             //1 PICTURE AT A TIME
@@ -201,12 +195,12 @@ class _HomeState extends State<Home> {
                           },
                         );
                       },
-                      child: Text('View all',
+                      child: Text(
+                        'View all',
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 15,
-                            color: Color(0xFF6a5acd)
-                        ),
+                            color: Color(0xFF6a5acd)),
                       ),
                     )
                   ],
@@ -264,8 +258,7 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 15,
-                            color: Color(0xFF6a5acd)
-                        ),
+                            color: Color(0xFF6a5acd)),
                       ),
                     )
                   ],
