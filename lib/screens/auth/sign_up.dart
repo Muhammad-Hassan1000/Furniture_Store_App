@@ -108,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             'imageurl': url,
             'joinedAt': formattedDate,
             'createdAt': Timestamp.now(),
-            'isAdmin' : false
+            //'isAdmin' : false
           });
           Navigator.canPop(context) ? Navigator.pop(context) : null;
         }

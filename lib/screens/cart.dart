@@ -2,12 +2,16 @@ import 'package:furniture_store_app/consts/colors.dart';
 import 'package:furniture_store_app/consts/my_icons.dart';
 import 'package:furniture_store_app/provider/cart_provider.dart';
 import 'package:furniture_store_app/services/global_methods.dart';
+import 'package:furniture_store_app/services/payment.dart';
 import 'package:furniture_store_app/widgets/cart_full.dart';
 import 'package:furniture_store_app/widgets/empty_cart.dart';
 import 'package:flutter/material.dart';
+//import 'package:sn_progress_dialog/sn_progress_dialog.dart';
+//import 'package:progress_bar/progress_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:future_progress_dialog/future_progress_dialog.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
 
   //PAYMENT GATEWAY
   // 1) The mount must be an
@@ -18,6 +22,50 @@ class CartScreen extends StatelessWidget {
   // sent in cents.
   static const routeName = '/CartScreen';
 
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  get amount => null;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    StripeService.init();
+  }
+
+  // var response;
+  // Future<void> payWithCard({int ? amount}) async {
+  //   // ProgressDialog dialog = ProgressDialog(context);
+  //   // dialog.style(message: 'Please wait...');
+  //   // await dialog.show();
+  //   // await showDialog(context: context, builder: (context) =>
+  //   // FutureProgressDialog(, message: Text('Please Wait..'))
+  //   // );
+  //   response = await StripeService.payWithNewCard(
+  //       currency: 'USD', amount: amount.toString());
+  //   print('response : ${response.success}');
+  //   // Scaffold.of(context).showSnackBar(SnackBar(
+  //   //   content: Text(response.message),
+  //   //   duration: Duration(milliseconds: response.success == true ? 1200 : 3000),
+  //   // ));
+  // }
+
+  var response;
+  Future<void> payWithCard() async{
+    response = await StripeService.payWithNewCard(amount: '5', currency: 'USD');
+    print('response : ${response.success}');
+    //_scaffoldKey.currentState?.showSnackBar(SnackBar(
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text(response.message),
+      duration: Duration(milliseconds: response.success == true ? 1200 : 3000),
+    ));
+  }
+
+  GlobalMethods globalMethods = GlobalMethods();
   @override
   Widget build(BuildContext context) {
     GlobalMethods globalMethods = GlobalMethods();
@@ -69,7 +117,7 @@ class CartScreen extends StatelessWidget {
             ));
   }
 
-  Widget checkoutSection(BuildContext ctx, double subtotal) {
+  /*Widget checkoutSection(BuildContext ctx, double subtotal) {
     return Container(
         decoration: BoxDecoration(
           border: Border(
@@ -98,7 +146,15 @@ class CartScreen extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(15),
-                      onTap: () {},
+                      onTap: payWithCard,
+                      // onTap: ({int ? amount}) async{
+                      //   response = await StripeService.payWithNewCard(
+                      //       currency: 'USD', amount: amount.toString());
+                      //   print('response : ${response.success}');
+                        // Scaffold.of(context).showSnackBar(SnackBar(
+                        //   content: Text(response.message),
+                        //   duration: Duration(milliseconds: response.success == true ? 1200 : 3000),
+                        // ));
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
@@ -133,5 +189,119 @@ class CartScreen extends StatelessWidget {
             ],
           ),
         ));
+  }*/
+
+  Widget checkoutSection(BuildContext ctx, double subtotal) {
+    // final cartProvider = Provider.of<CartProvider>(context);
+    // var uuid = Uuid();
+    // final FirebaseAuth _auth = FirebaseAuth.instance;
+    return Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(color: Colors.grey, width: 0.5),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            /// mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    gradient: LinearGradient(colors: [
+                      ColorConsts.gradiendLStart,
+                      ColorConsts.gradiendLEnd,
+                    ], stops: [
+                      0.0,
+                      0.7
+                    ]),
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(30),
+                      onTap: () async{
+                        response = await StripeService.payWithNewCard(amount: '1558.9', currency: 'USD');
+                        print('response : ${response.success}');
+                        print('response : ${response.message}');
+                        _scaffoldKey.currentState?.showSnackBar(SnackBar(
+                        //Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text(response.message),
+                          duration: Duration(milliseconds: response.success == true ? 1200 : 3000),
+                        ));
+                      },
+                      //onTap: payWithCard,
+                      // onTap: () async {
+                      //   double amountInCents = subtotal * 1000;
+                      //   int intengerAmount = (amountInCents / 10).ceil();
+                      //   await payWithCard(amount: intengerAmount);
+                      //   if (response.success == true) {
+                      //     User user = _auth.currentUser;
+                      //     final _uid = user.uid;
+                      //     cartProvider.getCartItems
+                      //         .forEach((key, orderValue) async {
+                      //       final orderId = uuid.v4();
+                      //       try {
+                      //         await FirebaseFirestore.instance
+                      //             .collection('order')
+                      //             .doc(orderId)
+                      //             .set({
+                      //           'orderId': orderId,
+                      //           'userId': _uid,
+                      //           'productId': orderValue.productId,
+                      //           'title': orderValue.title,
+                      //           'price': orderValue.price * orderValue.quantity,
+                      //           'imageUrl': orderValue.imageUrl,
+                      //           'quantity': orderValue.quantity,
+                      //           'orderDate': Timestamp.now(),
+                      //         });
+                      //       } catch (err) {
+                      //         print('error occured $err');
+                      //       }
+                      //     });
+                      //   } else {
+                      //     globalMethods.authErrorHandle(
+                      //         'Please enter your true information', context);
+                      //   }
+                      //},
+                      splashColor: Theme.of(ctx).splashColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Checkout',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Theme.of(ctx).textSelectionColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Spacer(),
+              Text(
+                'Total:',
+                style: TextStyle(
+                    color: Theme.of(ctx).textSelectionColor,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600),
+              ),
+              Text(
+                'US ${subtotal.toStringAsFixed(3)}',
+                //textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        ));
   }
 }
+
