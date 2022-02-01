@@ -18,7 +18,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           'https://cdn.pixabay.com/photo/2018/01/24/15/08/live-3104077__340.jpg',
     },
     {
-      'categoryName': 'Office Chairs',
+      'categoryName': 'Chairs',
       'categoryImagesPath':
           'https://cdn.pixabay.com/photo/2015/12/05/23/16/office-1078869_960_720.jpg',
     },
@@ -28,12 +28,12 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           'https://i.pinimg.com/564x/86/9c/ea/869ceae5b65333c45d8d9677a1e3620e.jpg'
     },
     {
-      'categoryName': 'Study',
+      'categoryName': 'Study Tables',
       'categoryImagesPath':
           'https://i.pinimg.com/564x/0f/f3/98/0ff3983518a1c4932e00e6e77473e2f9.jpg'
     },
     {
-      'categoryName': 'Tables',
+      'categoryName': 'Dinning Tables',
       'categoryImagesPath':
           'https://i.pinimg.com/564x/fe/de/d0/feded027e226753f55cb972b85ba14d7.jpg',
     },
@@ -62,9 +62,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                  image: NetworkImage(
-                      categories[widget.index]['categoryImagesPath']?.toString() ??
-                          ''),
+                  image: NetworkImage(categories[widget.index]
+                              ['categoryImagesPath']
+                          ?.toString() ??
+                      ''),
                   fit: BoxFit.cover),
             ),
             margin: EdgeInsets.symmetric(horizontal: 10),

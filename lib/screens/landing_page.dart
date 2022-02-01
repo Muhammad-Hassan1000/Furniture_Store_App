@@ -68,14 +68,18 @@ class _LandingPageState extends State<LandingPage>
           //DATE DATE
           var date = DateTime.now().toString();
           var dateparse = DateTime.parse(date);
-          var formattedDate ="${dateparse.day}-${dateparse.month}-${dateparse.year}";
+          var formattedDate =
+              "${dateparse.day}-${dateparse.month}-${dateparse.year}";
 
           final authResult = await _auth.signInWithCredential(
               GoogleAuthProvider.credential(
                   idToken: googleAuth.idToken,
                   accessToken: googleAuth.accessToken));
           //--------SAVE USER INFO ON GOOGLE SIGN IN
-          await FirebaseFirestore.instance.collection('users').doc(authResult.user!.uid).set({
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(authResult.user!.uid)
+              .set({
             'id': authResult.user!.uid,
             'name': authResult.user!.displayName,
             'email': authResult.user!.email,
@@ -93,19 +97,19 @@ class _LandingPageState extends State<LandingPage>
   }
 
   void _loginAnonymously() async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      await _auth.signInAnonymously();
+    } on FirebaseAuthException catch (error) {
+      _globalMethods.authErrorHandle(error.message, context);
+      print('Error has occurred: ${error.message}');
+    } finally {
       setState(() {
-        _isLoading = true;
+        _isLoading = false;
       });
-      try {
-        await _auth.signInAnonymously();
-      } on FirebaseAuthException catch (error) {
-        _globalMethods.authErrorHandle(error.message, context);
-        print('Error has occurred: ${error.message}');
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
-      }
+    }
   }
 
   @override
@@ -125,14 +129,21 @@ class _LandingPageState extends State<LandingPage>
         alignment: FractionalOffset(_animation.value, 0),
       ),
       Container(
-        margin: EdgeInsets.only(top: 30),
+        // Container(
+        // decoration: BoxDecoration(
+        //   image: AssetImage ('assets/logo.png'),
+        // ),
+
+        // ),
+        margin: EdgeInsets.only(top: 150),
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Welcome',
+              'WELCOME',
               style: TextStyle(
+                color: Colors.white,
                 fontSize: 40,
                 fontWeight: FontWeight.w600,
               ),
@@ -143,11 +154,11 @@ class _LandingPageState extends State<LandingPage>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Text(
-                'Welcome to the biggest online store',
+                'interiAR: Transform the Old era!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w400,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             )
@@ -271,17 +282,19 @@ class _LandingPageState extends State<LandingPage>
                 borderSide: BorderSide(width: 2, color: Colors.red),
                 child: Text('Google +'),
               ),
-              _isLoading ? CircularProgressIndicator() :
-              OutlineButton(
-                onPressed: () {
-                  _loginAnonymously();
-                  //Navigator.pushNamed(context, BottomBarScreen.routeName);
-                },
-                shape: StadiumBorder(),
-                highlightedBorderColor: Colors.deepPurple.shade200,
-                borderSide: BorderSide(width: 2, color: Colors.deepPurple),
-                child: Text('Sign in as a guest'),
-              ),
+              _isLoading
+                  ? CircularProgressIndicator()
+                  : OutlineButton(
+                      onPressed: () {
+                        _loginAnonymously();
+                        //Navigator.pushNamed(context, BottomBarScreen.routeName);
+                      },
+                      shape: StadiumBorder(),
+                      highlightedBorderColor: Colors.deepPurple.shade200,
+                      borderSide:
+                          BorderSide(width: 2, color: Colors.deepPurple),
+                      child: Text('Sign in as a guest'),
+                    ),
             ],
           ),
           SizedBox(
