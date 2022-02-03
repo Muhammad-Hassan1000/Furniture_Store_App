@@ -228,8 +228,9 @@ class ItemListScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                   Text(
-                    'interiAR- \nTransform the old era!',
+                  Image.asset("assets/logo1.png", height: 70, width: 70),
+                  Text(
+                    '   interiAR',
                     style: TextStyle(fontSize: 32, color: Colors.white),
                   ),
                   // Text(

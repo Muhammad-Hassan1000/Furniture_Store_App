@@ -140,27 +140,13 @@ class _LandingPageState extends State<LandingPage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'WELCOME',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 40,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            Image.asset("assets/logo1.png", height: 300, width: 300),
             SizedBox(
               height: 20,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                'interiAR: Transform the Old era!',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+
             )
           ],
         ),
